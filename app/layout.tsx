@@ -1,15 +1,38 @@
+// app/layout.tsx
 import { Audiowide, Orbitron, Rajdhani } from "next/font/google";
 import "./globals.css";
 
-const audiowide = Audiowide({ weight: "400", subsets: ["latin"], variable: "--font-audiowide" });
-const orbitron = Orbitron({ weight: ["400","700"], subsets: ["latin"], variable: "--font-orbitron" });
-const rajdhani = Rajdhani({ weight: ["400","700"], subsets: ["latin"], variable: "--font-rajdhani" });
+const audiowide = Audiowide({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-audiowide",
+});
 
-export default function RootLayout({ children }) {
+const orbitron = Orbitron({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  variable: "--font-orbitron",
+});
+
+const rajdhani = Rajdhani({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  variable: "--font-rajdhani",
+});
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="fr" className={`${audiowide.variable} ${orbitron.variable} ${rajdhani.variable}`}>
+    <html
+      lang="fr"
+      className={`${audiowide.variable} ${orbitron.variable} ${rajdhani.variable}`}
+    >
       <body>{children}</body>
     </html>
   );
 }
+
 

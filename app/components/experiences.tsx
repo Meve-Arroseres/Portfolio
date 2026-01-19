@@ -69,44 +69,44 @@ function Timeline({
   const containerRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [dotTop, setDotTop] = useState(0);
+  
 
   useEffect(() => {
-    const onScroll = () => {
-      if (!containerRef.current) return;
+  if (!containerRef.current) return;
 
-      const viewportCenter = window.innerHeight / 2;
-      let closestIndex = 0;
-      let minDistance = Infinity;
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const index = cardRefs.current.findIndex(
+            (el) => el === entry.target
+          );
 
-      cardRefs.current.forEach((card, index) => {
-        if (!card) return;
+          if (index !== -1 && containerRef.current) {
+            const card = cardRefs.current[index];
+            const containerRect = containerRef.current.getBoundingClientRect();
+            const cardRect = card!.getBoundingClientRect();
 
-        const rect = card.getBoundingClientRect();
-        const cardCenter = rect.top + rect.height / 2;
-        const distance = Math.abs(cardCenter - viewportCenter);
-
-        if (distance < minDistance) {
-          minDistance = distance;
-          closestIndex = index;
+            setDotTop(
+              cardRect.top - containerRect.top + cardRect.height / 2
+            );
+          }
         }
       });
+    },
+    {
+      root: null,
+      threshold: 0.6, // 👈 carte bien visible
+    }
+  );
 
-      const activeCard = cardRefs.current[closestIndex];
-      if (activeCard) {
-        const cardRect = activeCard.getBoundingClientRect();
-        const containerRect = containerRef.current.getBoundingClientRect();
+    cardRefs.current.forEach((card) => {
+      if (card) observer.observe(card);
+    });
 
-        setDotTop(
-          cardRect.top - containerRect.top + cardRect.height / 2
-        );
-      }
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => observer.disconnect();
   }, []);
+
 
   return (
     <div ref={containerRef} className="relative">
@@ -130,7 +130,9 @@ function Timeline({
         {items.map((item, idx) => (
           <div
             key={idx}
-            ref={(el) => (cardRefs.current[idx] = el)}
+            ref={(el) => {
+              cardRefs.current[idx] = el;
+            }}
             className="
               group relative overflow-hidden
               rounded-2xl bg-[#FFFFFF]
