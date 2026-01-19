@@ -1,132 +1,104 @@
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+"use client"
+
+import React from "react"
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
+} from "@headlessui/react"
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"
+import { Inder } from "next/font/google"
+
+const inder = Inder({
+  weight: "400",
+  subsets: ["latin"],
+})
 
 const navigation = [
-
-
-  { name: 'Accueil', href: '#home', current: true },
-  { name: 'A Propos', href: '#description', current: false },
-  { name: 'Experiences', href: '#experiences', current: false },
-  { name: 'Compétences', href: '#competences', current: false },
-  { name: 'Projets', href: '#projets', current: false },
-  { name: 'Contact', href: '#contact', current: false },
+  { name: "Accueil", href: "#" },
+  { name: "A Propos", href: "#description" },
+  { name: "Compétences", href: "#competences" },
+  { name: "Experiences", href: "#experiences" },
+  { name: "Projets", href: "#projets" },
+  { name: "Contact", href: "#contact" },
 ]
 
-function classNames(...classes : string[]) {
-  return classes.filter(Boolean).join(' ')
+function classNames(...classes: string[]) {
+  return classes.filter(Boolean).join(" ")
+}
+
+function Clock() {
+  const [time, setTime] = React.useState(new Date())
+
+  React.useEffect(() => {
+    const timer = setInterval(() => setTime(new Date()), 1000)
+    return () => clearInterval(timer)
+  }, [])
+
+  return (
+    <div className="text-right leading-tight text-sm">
+      <div>{time.toLocaleDateString("fr-FR")}</div>
+      <div>{time.toLocaleTimeString("fr-FR")}</div>
+    </div>
+  )
 }
 
 export default function Navbar() {
   return (
-    <Disclosure as="nav" className="fixed w-full bg-[#ced5e4]">
-      <div className="backdrop-blur-md bg-black/5">
-        <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-          <div className="relative flex h-16 items-center justify-between">
-            <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+    <Disclosure as="nav" className={`fixed w-full z-50 ${inder.className}`}>
+      <div className="backdrop-blur">
+        <div className="mx-4 my-6">
+          <div className="flex h-16 items-center rounded-4xl bg-[#DCE9FF] px-6 shadow-lg">
             
-            {/* Mobile menu button*/}
-            <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-[#0B0D10] hover:bg-white/5 hover:text-pink-500 focus:outline-2 focus:-outline-offset-1 focus:outline-pink-500">
-              <span className="absolute -inset-0.5" />
-              <span className="sr-only">Open main menu</span>
-              <Bars3Icon aria-hidden="true" className="block size-6 group-data-open:hidden" />
-              <XMarkIcon aria-hidden="true" className="hidden size-6 group-data-open:block" />
-            </DisclosureButton>
-          </div>
-          <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-            <div className="flex shrink-0 items-center">
+            {/* MOBILE BUTTON */}
+            <div className="absolute left-4 flex items-center sm:hidden">
+              <DisclosureButton className="inline-flex items-center justify-center rounded-md p-2 text-[#0F172A] hover:text-[#2563EB]">
+                <Bars3Icon className="block h-6 w-6 data-[open]:hidden" />
+                <XMarkIcon className="hidden h-6 w-6 data-[open]:block" />
+              </DisclosureButton>
+            </div>
+
+            {/* LOGO - GAUCHE */}
+            <div className="flex shrink-0">
               <img
-                alt="Your Company"
-                src=""
-                className="h-8 w-auto"
+                src="assets/favicon-32x32.png"
+                alt="Logo"
+                className="h-8 w-auto drop-shadow-sm"
               />
             </div>
-            <div className="hidden sm:ml-6 sm:block">
-              <div className="flex space-x-4">
-                {navigation.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    aria-current={item.current ? 'page' : undefined}
-                    className={classNames(
-                      item.current ? 'bg-[#E5E7EB] text-[#0B0D10]' : 'text-[#0B0D10] hover:bg-white/5 hover:text-pink-500',
-                      'rounded-md px-3 py-2 text-sm font-medium font-[Righteous]',
-                    )}
-                  >
-                    {item.name}
-                  </a>
-                ))}
-              </div>
+
+            {/* NAVIGATION - CENTRÉE */}
+            <div className="mx-auto hidden sm:flex max-w-[60%] justify-center gap-5 overflow-hidden">
+              {navigation.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="whitespace-nowrap px-2 py-2 text-lg font-medium text-[#0F172A] hover:text-[#2563EB] transition"
+                >
+                  {item.name}
+                </a>
+              ))}
+            </div>
+
+
+
+            {/* DATE / HEURE - DROITE */}
+            <div className="hidden sm:block text-[#0F172A] font-medium">
+              <Clock />
             </div>
           </div>
-          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <button
-              type="button"
-              className="relative rounded-full p-1 text-[#0B0D10] focus:outline-2 focus:outline-offset-2 focus:outline-pink-500"
-            >
-              <span className="absolute -inset-1.5" />
-              <span className="sr-only">View notifications</span>
-              <BellIcon aria-hidden="true" className="size-6" />
-            </button>
-
-            {/* Profile dropdown */}
-            <Menu as="div" className="relative ml-3">
-              <MenuButton className="relative flex rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6EE7B7]">
-                <span className="absolute -inset-1.5" />
-                <span className="sr-only">Open user menu</span>
-                <img
-                  alt=""
-                  src=""
-                  className="size-8 rounded-full bg-gray-800 outline -outline-offset-1 outline-white/10"
-                />
-              </MenuButton>
-
-              <MenuItems
-                transition
-                className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg outline outline-black/5 transition data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
-              >
-                <MenuItem>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
-                  >
-                    Your profile
-                  </a>
-                </MenuItem>
-                <MenuItem>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
-                  >
-                    Settings
-                  </a>
-                </MenuItem>
-                <MenuItem>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
-                  >
-                    Sign out
-                  </a>
-                </MenuItem>
-              </MenuItems>
-            </Menu>
-          </div>
-        </div>
         </div>
       </div>
 
+      {/* MOBILE MENU */}
       <DisclosurePanel className="sm:hidden">
-        <div className="space-y-1 px-2 pt-2 pb-3">
+        <div className="space-y-1 px-4 pb-4">
           {navigation.map((item) => (
             <DisclosureButton
               key={item.name}
               as="a"
               href={item.href}
-              aria-current={item.current ? 'page' : undefined}
-              className={classNames(
-                item.current ? 'bg-[#E5E7EB] text-[#0B0D10]' : 'text-[#0B0D10] hover:bg-white/5 hover:text-[#6EE7B7]',
-                'block rounded-md px-3 py-2 text-base font-medium',
-              )}
+              className="block rounded-md px-3 py-2 text-base font-medium bg-[#DCE9FF] text-[#0F172A] hover:text-[#2563EB]"
             >
               {item.name}
             </DisclosureButton>
