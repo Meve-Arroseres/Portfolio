@@ -43,7 +43,7 @@ const projets = [
     desc: "Jeu d'arcade en 2D inspiré de Pac-Man.",
     img: "/assets/persoleft01.png",
     link: "#",
-    tags: ["JAVA", "OOP", "Frontend", "Design", "Jeu vidéo"],
+    tags: ["JAVA", "OOP", "Design", "Jeu vidéo"],
   },
   {
     title: "Popeye",
@@ -87,7 +87,7 @@ export default function Projets() {
         <h2 className="mt-4 text-4xl md:text-5xl font-semibold text-[#2563EB]">
           Projets
         </h2>
-        <div className="mt-6 mx-auto h-[2px] w-28 bg-black/35" />
+        <div className="mt-6 mx-auto h-[2px] w-28 bg-[#FF6B4A]" />
       </div>
 
       {/* Barre de filtres */}

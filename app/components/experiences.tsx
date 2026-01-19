@@ -176,7 +176,7 @@ export default function Experiences() {
         <h2 className="mt-4 text-4xl md:text-5xl font-semibold text-[#2563EB]">
           Formations & Expériences
         </h2>
-        <div className="mt-6 mx-auto h-[2px] w-28 bg-[#0F172A]/35" />
+        <div className="mt-6 mx-auto h-[2px] w-28 bg-[#FF6B4A]" />
       </div>
 
       <div className="grid md:grid-cols-2 gap-24">
