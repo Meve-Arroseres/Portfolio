@@ -26,8 +26,8 @@ export default function Description() {
           </p>
 
           <h2 className="mt-4 text-4xl md:text-5xl font-semibold text-[#2563EB] leading-tight">
-            Développement.<br />
-            Cybersécurité.<br />
+            Développement,<br />
+            Cybersécurité &<br />
             DevOps.
           </h2>
 

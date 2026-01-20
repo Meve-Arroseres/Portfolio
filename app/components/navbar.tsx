@@ -8,6 +8,7 @@ import {
 } from "@headlessui/react"
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"
 import { Inder } from "next/font/google"
+import { Audiowide, Orbitron, Rajdhani } from "next/font/google";
 
 const inder = Inder({
   weight: "400",
@@ -61,9 +62,9 @@ export default function Navbar() {
             {/* LOGO - GAUCHE */}
             <div className="flex shrink-0">
               <img
-                src="assets/favicon-32x32.png"
+                src="assets/MA.png"
                 alt="Logo"
-                className="h-8 w-auto drop-shadow-sm"
+                className="h-8 w-auto drop-shadow-sm rounded-lg"
               />
             </div>
 
@@ -73,7 +74,7 @@ export default function Navbar() {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="whitespace-nowrap px-2 py-2 text-lg font-medium text-[#0F172A] hover:text-[#2563EB] transition"
+                  className="whitespace-nowrap px-2 py-2 text-lg font-[Rajdhani] font-semibold text-[#192645] hover:text-[#2563EB] transition"
                 >
                   {item.name}
                 </a>

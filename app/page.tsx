@@ -89,19 +89,19 @@ export default function Home() {
         <Description />
       </section>
 
-      <section id="competences" className="py-20">
+      <section id="competences" className="py-8">
         <Competences />
       </section>
 
-      <section id="experiences" className="py-20">
+      <section id="experiences" className="py-8">
         <Experiences />
       </section>
 
-      <section id="projets" className="py-20">
+      <section id="projets" className="py-8">
         <Projets />
       </section>
 
-      <section id="contact" className="py-20">
+      <section id="contact" className="py-8">
         <Contact />
       </section>
     </main>
